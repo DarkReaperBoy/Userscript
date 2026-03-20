@@ -3,11 +3,11 @@
 - [Ublock Origin](https://ublockorigin.com/)
 
 # Persian Iptv:
-- [Glwiz](http://glwiz.com/) - [userscript](https://github.com/DarkReaperBoy/Userscript/raw/refs/heads/main/glwiz.user.js)
+- [Glwiz](http://glwiz.com/) - [userscript](https://raw.githubusercontent.com/DarkReaperBoy/Userscript/refs/heads/main/UserScripts/glwiz.user.js)
 - [OneTV](https://webapp.onetv.app/)
 
 # Persian Chat:
-- [Bale.ai](https://web.bale.ai) - [userscript](https://github.com/DarkReaperBoy/Userscript/raw/refs/heads/main/bale.user.js)
+- [Bale.ai](https://web.bale.ai) - [userscript](https://raw.githubusercontent.com/DarkReaperBoy/Userscript/refs/heads/main/UserScripts/bale.user.js)
 
 -----------
 N/A:
