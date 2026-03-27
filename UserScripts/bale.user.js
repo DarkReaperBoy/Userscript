@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bale Bridge Encryptor/Decryptor (Ultimate Privacy)
 // @namespace    http://tampermonkey.net/
-// @version      11.0
+// @version      11.1
 // @description  Per-chat keys, Shield button, Material UI, Auto-decrypt, Draft blocker. Desktop & Mobile.
 // @author       You
 // @match        *://web.bale.ai/*
