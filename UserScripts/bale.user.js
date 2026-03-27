@@ -290,17 +290,35 @@
             }
             if (skip) continue;
             el._isDecrypting = true;
-            decrypt(trimmed).then((plain) => {
+decrypt(trimmed).then((plain) => {
                 if (plain !== trimmed) {
-                    if (!el._bbOverflowSet) {
+                    // Check if we are inside a Reply Preview or the Sidebar's chat list
+                    const isPreview = el.closest && (el.closest('[data-sentry-component="Preview"]') || el.closest('.dialog-item-content'));
+
+                    if (isPreview) {
+                        // Compact, clamped view for previews (max 2 lines)
+                        el.style.display = "-webkit-box";
+                        el.style.webkitLineClamp = "2";
+                        el.style.webkitBoxOrient = "vertical";
                         el.style.overflow = "hidden";
-                        el.style.overflowWrap = "anywhere";
+                        el.style.whiteSpace = "normal";
                         el.style.wordBreak = "break-word";
-                        el.style.maxWidth = "100%";
-                        el._bbOverflowSet = true;
+                        // Collapse all newlines and spaces into single spaces
+                        el.textContent = plain.replace(/\s+/g, ' '); 
+                        el.innerHTML += ` <span style="font-size:10px;opacity:0.6">🔒</span>`;
+                    } else {
+                        // Full rich formatting view for normal messages
+                        if (!el._bbOverflowSet) {
+                            el.style.overflow = "hidden";
+                            el.style.overflowWrap = "anywhere";
+                            el.style.wordBreak = "break-word";
+                            el.style.maxWidth = "100%";
+                            el._bbOverflowSet = true;
+                        }
+                        el.innerHTML = renderDecrypted(plain) +
+                            `<span style="display:inline-block;font-size:9px;opacity:0.4;letter-spacing:0.02em;font-style:italic;margin-inline-start:5px;vertical-align:middle;line-height:1;white-space:nowrap">🔒 encrypted</span>`;
                     }
-                    el.innerHTML = renderDecrypted(plain) +
-                        `<span style="display:inline-block;font-size:9px;opacity:0.4;letter-spacing:0.02em;font-style:italic;margin-inline-start:5px;vertical-align:middle;line-height:1;white-space:nowrap">🔒 encrypted</span>`;
+                    
                     el.style.color = "inherit";
                     el._isDecrypted = true;
                 }
