@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Rubika Bridge Encryptor/Decryptor (Ultimate Privacy)
 // @namespace    http://tampermonkey.net/
-// @version      2.0
-// @description  Per-chat encryption keys, Shield button, Markdown UI, Auto-decrypt, Draft blocker.
+// @version      2.1
+// @description  Per-chat encryption keys, Shield button, Markdown UI, Auto-decrypt, Draft blocker. Desktop only.
 // @author       You
 // @match        *://web.rubika.ir/*
 // @grant        none
@@ -22,7 +22,6 @@
     const COMPRESSION_FORMAT = "deflate";
     const STORAGE_PREFIX = "rubika_bridge_settings_";
     const ENCRYPTED_MESSAGE_PREFIX = "@@";
-    const LONG_PRESS_DELAY_MS = 500;
     const MUTATION_DEBOUNCE_MS = 100;
     const SEND_BUTTON_POLL_INTERVAL_MS = 50;
     const SEND_BUTTON_POLL_MAX_ATTEMPTS = 20;
@@ -1031,8 +1030,6 @@
         return !!target.closest(".btn-send");
     }
 
-    let longPressTimer;
-
     function initializeSendButtonHandlers() {
         // Left-click: send encrypted
         document.addEventListener(
@@ -1070,31 +1067,6 @@
             },
             true
         );
-
-        // Touch: long-press for context menu
-        document.addEventListener(
-            "touchstart",
-            (event) => {
-                if (
-                    isClickOnSendButton(event.target) &&
-                    !isSending &&
-                    isEncryptionEnabled() &&
-                    hasSecureInputContent()
-                ) {
-                    longPressTimer = setTimeout(() => {
-                        event.preventDefault();
-                        showContextMenu(
-                            event.touches[0].clientX,
-                            event.touches[0].clientY
-                        );
-                    }, LONG_PRESS_DELAY_MS);
-                }
-            },
-            { passive: false, capture: true }
-        );
-
-        document.addEventListener("touchend", () => clearTimeout(longPressTimer), true);
-        document.addEventListener("touchmove", () => clearTimeout(longPressTimer), true);
     }
 
     // =========================================================================
@@ -1224,7 +1196,7 @@
                 <div class="bb-notice-icon">⚠️</div>
                 <div class="bb-notice-body">
                     <strong>Encryption key not set — sending is blocked.</strong>
-                    Tap the shield icon to set up encryption or disable it.
+                    Click the shield icon to set up encryption or disable it.
                     <br>
                     <button class="bb-notice-btn" id="bb-notice-set-key">🛡 Set Encryption Key</button>
                 </div>`;
