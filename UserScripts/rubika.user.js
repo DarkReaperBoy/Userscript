@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Rubika Bridge Encryptor/Decryptor (Ultimate Privacy)
 // @namespace    http://tampermonkey.net/
-// @version      3.3
+// @version      3.4
 // @description  Per-chat encryption keys, Shield button, Markdown UI, Auto-decrypt, Draft blocker. Desktop + Mobile.
 // @author       You
 // @match        *://web.rubika.ir/*
